@@ -39,14 +39,14 @@ async function main() {
                     if (!firstNumber) {
                         firstNumber = number_as_letters[caracter];
                       }
-                      lastNumber = number_as_letters[caracter];
-                    }
+                      secondNumber = number_as_letters[caracter];
                 }
             });
-            objectArray.push(firstNumber + secondNumber);
+            if (firstNumber !== undefined && secondNumber !== undefined) {
+                objectArray.push(firstNumber + secondNumber);
+              }           
             
-            
-            
+
             
     
             
