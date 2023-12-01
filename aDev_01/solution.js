@@ -1,20 +1,23 @@
 const fs = require('fs').promises;
 async function convertDataToArray() {
     try {
-      const data = await fs.readFile('./test.txt', 'utf8');
+      const data = await fs.readFile('./letters.txt', 'utf8');
       const lines = data.split('\n');
       const filteredLines = lines.filter(line => line.trim() !== '');
       console.log(filteredLines);
       return filteredLines;
     } catch (err) {
       console.error('Error al leer data', err);
-      throw err; // Propaga el error para que pueda ser manejado por el código que llama a esta función
+      throw err; 
     }
   }
 
 let objectArray = [];
 let dataArray;
 
+let objectArray_letters = [];
+                        
+let number_as_letters = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9}
 async function main() {
     try {
       dataArray = await convertDataToArray();
@@ -32,9 +35,18 @@ async function main() {
                         firstNumber = caracter;
                     }
                     secondNumber = caracter;
+                }else if(number_as_letters[caracter]){
+                    if (!firstNumber) {
+                        firstNumber = number_as_letters[caracter];
+                      }
+                      lastNumber = number_as_letters[caracter];
+                    }
                 }
             });
             objectArray.push(firstNumber + secondNumber);
+            
+            
+            
             
     
             
@@ -45,6 +57,11 @@ async function main() {
             return accumulator + newNumber;
         },0);
         console.log(sum);
+        /*
+        let sumLetters = objectArray_letters.reduce((accumulator, newNumber)=>{
+            return accumulator + newNumber;
+        },0);
+        console.log(objectArray_letters);*/
     } catch (err) {
       
       console.error('Error en la función principal', err);
@@ -52,24 +69,3 @@ async function main() {
 }
   main();
   console.log(dataArray);
-/*
-dataArray.forEach((line)=>{
-    let firstNumber;
-    let secondNumber;
-
-        let tempArray = line.split('');
-        tempArray.forEach((caracter)=>{
-            if(!isNaN(Number(caracter))){
-                if(fristNumber){
-                    firstNumber = Number(caracter)
-                }
-                secondNumber = caracter;
-            }
-        });
-        objectArray.push(firstNumber);
-        objectArray.push(secondNumber);
-
-        firstNumber = undefined;
-        secondNumber = undefined;
-});
-console.log(objectArray);*/
