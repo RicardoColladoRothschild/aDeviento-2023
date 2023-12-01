@@ -20,12 +20,38 @@ async function main() {
       dataArray = await convertDataToArray();
       console.log('printing data');
       console.log(dataArray);
+
+      dataArray.forEach((line)=>{
+        let firstNumber = undefined;
+        let secondNumber;
+    
+            let tempArray = line.split('');
+            tempArray.forEach((caracter)=>{
+                if(!isNaN(Number(caracter))){
+                    if(!firstNumber){
+                        firstNumber = caracter;
+                    }
+                    secondNumber = caracter;
+                }
+            });
+            objectArray.push(firstNumber + secondNumber);
+            
+    
+            
+    });
+    console.log(objectArray);
+        let nums = objectArray.map((e)=>Number(e));
+        let sum = nums.reduce((accumulator, newNumber)=>{
+            return accumulator + newNumber;
+        },0);
+        console.log(sum);
     } catch (err) {
       
       console.error('Error en la función principal', err);
     }
 }
   main();
+  console.log(dataArray);
 /*
 dataArray.forEach((line)=>{
     let firstNumber;
