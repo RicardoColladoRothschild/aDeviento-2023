@@ -1,26 +1,31 @@
-const fs = require('fs');
-async function convertDataToArray(){
-        
-    let dataConverted;
-    fs.readFile('./test.txt', 'utf8',(err,data)=>{
-        if(err){
-            console.log('error al leer data',err);
-            return;
-        }
+const fs = require('fs').promises;
+async function convertDataToArray() {
+    try {
+      const data = await fs.readFile('./test.txt', 'utf8');
+      const lines = data.split('\n');
+      const filteredLines = lines.filter(line => line.trim() !== '');
+      console.log(filteredLines);
+      return filteredLines;
+    } catch (err) {
+      console.error('Error al leer data', err);
+      throw err; // Propaga el error para que pueda ser manejado por el código que llama a esta función
+    }
+  }
 
-        const line = data.split('\n');
-        const filteredLines = line.filter(line=>line.trim() !=='');
-
-        dataConverted = filteredLines;
-        console.log(filteredLines);
-        console.log(dataConverted);
-    });
-    return dataConverted;
-}
 let objectArray = [];
-let dataArray = convertDataToArray();
-console.log(dataArray);
+let dataArray;
 
+async function main() {
+    try {
+      dataArray = await convertDataToArray();
+      console.log('printing data');
+      console.log(dataArray);
+    } catch (err) {
+      
+      console.error('Error en la función principal', err);
+    }
+}
+  main();
 /*
 dataArray.forEach((line)=>{
     let firstNumber;
