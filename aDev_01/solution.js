@@ -16,8 +16,9 @@ let objectArray = [];
 let dataArray;
 
 let objectArray_letters = [];
-                        
-let number_as_letters = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9}
+
+let number_as_letters = {'one':1, 'two':2, 'thre':3, 'fou':4, 'fiv':5, 'six':6, 'sev':7, 'eig':8, 'nin':9}
+
 async function main() {
     try {
       dataArray = await convertDataToArray();
@@ -27,19 +28,23 @@ async function main() {
       dataArray.forEach((line)=>{
         let firstNumber = undefined;
         let secondNumber;
-    
+
+
+
             let tempArray = line.split('');
-            tempArray.forEach((caracter)=>{
+            tempArray.forEach((caracter,indx)=>{
                 if(!isNaN(Number(caracter))){
                     if(!firstNumber){
                         firstNumber = caracter;
                     }
                     secondNumber = caracter;
-                }else if(number_as_letters[caracter]){
+                }else if(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])] !==undefined){
                     if (!firstNumber) {
-                        firstNumber = number_as_letters[caracter];
+                        firstNumber = number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])];
+                        console.log(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])]);
                       }
-                      secondNumber = number_as_letters[caracter];
+                      secondNumber = number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])];
+                      console.log(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])]);
                 }
             });
             if (firstNumber !== undefined && secondNumber !== undefined) {
