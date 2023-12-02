@@ -52,7 +52,7 @@ async function main() {
                         console.log();
                       }
                       secondNumber = number_as_letter[matcher];
-                      console.log(number_as_letter[matcher];);
+                      console.log(number_as_letter[matcher]);
                 }
             });
             if (firstNumber !== undefined && secondNumber !== undefined) {
