@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 async function convertDataToArray() {
     try {
-      const data = await fs.readFile('./dataEntry2.txt', 'utf8');
+      const data = await fs.readFile('./dataEntry3.txt', 'utf8');
       const lines = data.split('\n');
       const filteredLines = lines.filter(line => line.trim() !== '');
       console.log(filteredLines);
@@ -34,12 +34,18 @@ async function main() {
 
             let temporaryLine = line;
 
+            
             for(let key in number_as_letters){
-              line = line.replace('oneight','1ight');
-              line = line.replace('threeight','3ight');
-              line = line.replace('fiveight','5ight');
-              line = line.replace('twone','2ne');
-              line = line.replace('twone','2ne');
+              line = line.replace('one','o1ne');
+              line = line.replace('two','t2wo');
+              line = line.replace('three','t3hree');
+              line = line.replace('four','f4our');
+              line = line.replace('five','f5ive');
+              line = line.replace('six','s6ix');
+              line = line.replace('seven','s7even');
+              line = line.replace('eight','e8ight');
+              line = line.replace('nine','n9ne');
+              
 
               line = line.replace(`${key}`,`${number_as_letters[key]}`);
           }
