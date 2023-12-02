@@ -18,7 +18,7 @@ let dataArray;
 let objectArray_letters = [];
 
 let number_as_letters = {'one':1, 'two':2, 'thre':3, 'fou':4, 'fiv':5, 'six':6, 'sev':7, 'eig':8, 'nin':9}
-
+const expresionRegular = /\b(?:one|two|three|four|five|six|seven|eight|nine|zero)\b/i;
 async function main() {
     try {
       dataArray = await convertDataToArray();
@@ -29,19 +29,21 @@ async function main() {
         let firstNumber = undefined;
         let secondNumber;
 
-
+            let temporaryLine = line;
 
             let tempArray = line.split('');
             tempArray.forEach((caracter,indx)=>{
+                const resultado = expresionRegular.exec(temporaryLine);
                 if(!isNaN(Number(caracter))){
                     if(!firstNumber){
                         firstNumber = caracter;
                     }
                     secondNumber = caracter;
-                }else if(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])] !==undefined){
+                }else if(resultado){
                     if (!firstNumber) {
-                        firstNumber = number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])];
-                        console.log(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])]);
+                      const matcher = resultado[0];
+                        firstNumber = matcher;
+                        console.log();
                       }
                       secondNumber = number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])];
                       console.log(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])]);
