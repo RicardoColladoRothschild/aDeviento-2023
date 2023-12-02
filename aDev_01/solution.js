@@ -17,7 +17,7 @@ let dataArray;
 
 let objectArray_letters = [];
 
-let number_as_letters = {'one':1, 'two':2, 'thre':3, 'fou':4, 'fiv':5, 'six':6, 'sev':7, 'eig':8, 'nin':9}
+let number_as_letters = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9, 'zero':0}
 const expresionRegular = /\b(?:one|two|three|four|five|six|seven|eight|nine|zero)\b/i;
 async function main() {
     try {
@@ -40,13 +40,19 @@ async function main() {
                     }
                     secondNumber = caracter;
                 }else if(resultado){
+                  const matcher = resultado[0];
+                        const inicio = resultado.index;
+                        const fin = inicio + resultado[0].length;
+                        const anterior = temporaryLine.slice(0,inicio);
+                        const posterior = temproaryLine.slice(fin);
+                        temporaryLine = anterior + posterior;
                     if (!firstNumber) {
-                      const matcher = resultado[0];
-                        firstNumber = matcher;
+                      
+                        firstNumber = number_as_letter[matcher];
                         console.log();
                       }
-                      secondNumber = number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])];
-                      console.log(number_as_letters[(caracter + tempArray[indx+1] + tempArray[indx + 2])]);
+                      secondNumber = number_as_letter[matcher];
+                      console.log(number_as_letter[matcher];);
                 }
             });
             if (firstNumber !== undefined && secondNumber !== undefined) {
