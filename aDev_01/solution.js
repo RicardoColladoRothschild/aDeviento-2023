@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 async function convertDataToArray() {
     try {
-      const data = await fs.readFile('./letters.txt', 'utf8');
+      const data = await fs.readFile('./dataEntry2.txt', 'utf8');
       const lines = data.split('\n');
       const filteredLines = lines.filter(line => line.trim() !== '');
       console.log(filteredLines);
@@ -17,8 +17,11 @@ let dataArray;
 
 let objectArray_letters = [];
 
-let number_as_letters = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9, 'zero':0}
+/*let number_as_letters = {'one':'1', 'two':'2', 'three':'3', 'four':'4', 'five':'5', 'six':'6', 'seven':'7', 'eight':'8', 'nine':'9', 'zero':'0'}
 const expresionRegular = /\b(?:one|two|three|four|five|six|seven|eight|nine|zero)\b/i;
+const expresionRegular2 = /\b(?:one|two|three|four|eight|nine|seven|six|five)\b/g;*/
+let number_as_letters = {'nine':'9','eight':'8','seven':'7','six':'6','five':'5','four':'4','three':'3','two':'2', 'one':'1', }
+
 async function main() {
     try {
       dataArray = await convertDataToArray();
@@ -31,28 +34,26 @@ async function main() {
 
             let temporaryLine = line;
 
+            for(let key in number_as_letters){
+              line = line.replace('oneight','1ight');
+              line = line.replace('threeight','3ight');
+              line = line.replace('fiveight','5ight');
+              line = line.replace('twone','2ne');
+              line = line.replace('twone','2ne');
+
+              line = line.replace(`${key}`,`${number_as_letters[key]}`);
+          }
+          console.log('Line after converted leters numbers:');
+          console.log(line);
             let tempArray = line.split('');
-            tempArray.forEach((caracter,indx)=>{
-                const resultado = expresionRegular.exec(temporaryLine);
+            tempArray.forEach((caracter)=>{
+                
+                
                 if(!isNaN(Number(caracter))){
                     if(!firstNumber){
                         firstNumber = caracter;
                     }
                     secondNumber = caracter;
-                }else if(resultado){
-                  const matcher = resultado[0];
-                        const inicio = resultado.index;
-                        const fin = inicio + resultado[0].length;
-                        const anterior = temporaryLine.slice(0,inicio);
-                        const posterior = temproaryLine.slice(fin);
-                        temporaryLine = anterior + posterior;
-                    if (!firstNumber) {
-                      
-                        firstNumber = number_as_letter[matcher];
-                        console.log();
-                      }
-                      secondNumber = number_as_letter[matcher];
-                      console.log(number_as_letter[matcher]);
                 }
             });
             if (firstNumber !== undefined && secondNumber !== undefined) {
