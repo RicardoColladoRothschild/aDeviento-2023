@@ -48,7 +48,7 @@ async function convertDataToArray() {
                 }
             }
         }
-    //console.log(arrayMultidimensional);
+    console.log(arrayMultidimensional);
     console.log(games);
   }
   main();
