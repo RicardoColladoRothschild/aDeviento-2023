@@ -6,7 +6,7 @@ let color_Objects = {green:0,blue:0,red:0}
 let games = [];
 async function convertDataToArray() {
     try {
-      const data = await fs.readFile('./input.txt', 'utf8');
+      const data = await fs.readFile('./testdata.txt', 'utf8');
       const lines = data.split('\n');
       const filteredLines = lines.filter(line => line.trim() !== '');
       
@@ -51,15 +51,15 @@ function returnColor(stringColor){
             for(let j = 0; j < arrayMultidimensional[i].length;j++){
                 const subSet = arrayMultidimensional[i][j].split(',');
                 if(j===0){
-                    currentGame= returnDigits(subSet[0]);
+                    currentGame= Number(returnDigits(subSet[0]));
                     //games.push(temp); -> this must be move to the part of code where we confirm current game applies.
                 }
                     subSet.forEach((set, indx)=>{
 
                         if(indx!==0){
-                            const number =returnDigits(set);
+                            const number =Number(returnDigits(set));
                             const color = returnColor(set);
-
+                            
                             color_Objects[color] +=number;
                         }
                         
@@ -67,8 +67,11 @@ function returnColor(stringColor){
 
 
             }
+                console.log(currentGame);
+                console.log(color_Objects);
                 if((color_Objects.blue <= goal_Blue) && (color_Objects.red <= goal_Red) && (color_Objects.green <= goal_Green)){
-                        games.push(currentGame)
+                    console.log('get into condition');
+                        games.push(currentGame);
                 }
 
 
@@ -78,9 +81,10 @@ function returnColor(stringColor){
         }
     console.log(arrayMultidimensional);
     console.log(games);
+    const sum = games.reduce((accumulator, newNum)=>{
+        return accumulator +newNum;
+      },0);
+      console.log(sum);
   }
   main();
-  const sum = games.reduce((accumulator, newNum)=>{
-    return accumulator +newNum;
-  },0);
-  console.log(sum);
+ 
