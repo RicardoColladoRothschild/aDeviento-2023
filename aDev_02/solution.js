@@ -23,6 +23,13 @@ async function convertDataToArray() {
     return stringDigits.match(regex);
 }
 
+function returnColor(stringColor){
+    const regex = /\b(?:\d+\s+)?([a-zA-Z]+)\b/;
+    const result = stringColor.match(regex);
+
+    return result[1];
+}
+
   async function main(){
     
   let arreglo = await convertDataToArray();
@@ -40,15 +47,40 @@ async function convertDataToArray() {
             
     }
         for(let i = 0; i < arrayMultidimensional.length; i++){
+            let currentGame;
             for(let j = 0; j < arrayMultidimensional[i].length;j++){
                 const subSet = arrayMultidimensional[i][j].split(',');
                 if(j===0){
-                    const currentGame = returnDigits(subSet[0]);
+                    currentGame= returnDigits(subSet[0]);
                     //games.push(temp); -> this must be move to the part of code where we confirm current game applies.
                 }
+                    subSet.forEach((set, indx)=>{
+
+                        if(indx!==0){
+                            const number =returnDigits(set);
+                            const color = returnColor(set);
+
+                            color_Objects[color] +=number;
+                        }
+                        
+                    });
+
+
             }
+                if((color_Objects.blue <= goal_Blue) && (color_Objects.red <= goal_Red) && (color_Objects.green <= goal_Green)){
+                        games.push(currentGame)
+                }
+
+
+            color_Objects.blue = 0;
+            color_Objects.green = 0;
+            color_Objects.red = 0;
         }
     console.log(arrayMultidimensional);
     console.log(games);
   }
   main();
+  const sum = games.reduce((accumulator, newNum)=>{
+    return accumulator +newNum;
+  },0);
+  console.log(sum);
