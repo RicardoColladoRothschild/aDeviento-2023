@@ -6,7 +6,7 @@ let color_Objects = {green:0,blue:0,red:0}
 let games = [];
 async function convertDataToArray() {
     try {
-      const data = await fs.readFile('./testdata.txt', 'utf8');
+      const data = await fs.readFile('./testdata', 'utf8');
       const lines = data.split('\n');
       const filteredLines = lines.filter(line => line.trim() !== '');
       
@@ -46,7 +46,7 @@ function returnColor(stringColor){
 
             
     }
-        for(let i = 0; i < arrayMultidimensional.length; i++){
+        for(let i = 0; i < arrayMultidimensional.length-1; i++){
             let currentGame;
             for(let j = 0; j < arrayMultidimensional[i].length;j++){
                 const subSet = arrayMultidimensional[i][j].split(',');
@@ -56,12 +56,14 @@ function returnColor(stringColor){
                 }
                     subSet.forEach((set, indx)=>{
 
-                        if(indx!==0){
+                            
                             const number =Number(returnDigits(set));
                             const color = returnColor(set);
+                                if(color!=='Game'){
+                                    color_Objects[color] +=number;
+                                }
                             
-                            color_Objects[color] +=number;
-                        }
+                        
                         
                     });
 
