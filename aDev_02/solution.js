@@ -32,7 +32,7 @@ function returnColor(stringColor){
     return result[1];
 }
 
-    let flag_validateGame = false;
+    let flag_validateGame = true;
   async function main(){
     
   let arreglo = await convertDataToArray();
@@ -54,6 +54,7 @@ function returnColor(stringColor){
     
         for(let i = 0; i < arrayMultidimensional.length; i++){
             let currentGame;
+            let flag_validateGame = true;
             for(let j = 0; j < arrayMultidimensional[i].length;j++){
                 const subSet = arrayMultidimensional[i][j].split(',');
                 console.log(subSet);
@@ -68,13 +69,25 @@ function returnColor(stringColor){
                             const color = returnColor(set);
 
                                     if(color==='red'){
-                                        color_Objects['red'] +=number;
+                                        
+                                        if(number > goal_Red){
+                                            console.log(set);
+                                            flag_validateGame = false
+                                        }
 
                                     }else if(color==='blue'){
-                                        color_Objects['blue'] +=number;
+                                        
+                                        if(number > goal_Blue){
+                                            console.log(set);
+                                            flag_validateGame = false
+                                        }
 
                                     }else if(color==='green'){
-                                        color_Objects['green'] +=number;
+                                        
+                                        if(number > goal_Green){
+                                            console.log(set);
+                                            flag_validateGame = false
+                                        }
                                     }
                         
                     });
@@ -82,9 +95,9 @@ function returnColor(stringColor){
 
                     
             }
-            console.log(currentGame);
-            console.log(color_Objects);
-            if((color_Objects.blue <= goal_Blue) && (color_Objects.red <= goal_Red) && (color_Objects.green <= goal_Green)){
+            /*console.log(currentGame);
+            console.log(color_Objects);*/
+            if(flag_validateGame){
                 console.log('get into condition');
                     games.push(currentGame);
             }
