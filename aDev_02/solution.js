@@ -4,6 +4,7 @@ const goal_Green = 13;
 const goal_Blue = 14;
 let color_Objects = {'green':0,'blue':0,'red':0}
 let games = [];
+let allMaxGames = [];
 async function convertDataToArray() {
     try {
       const data = await fs.readFile('./input.txt', 'utf8');
@@ -55,6 +56,9 @@ function returnColor(stringColor){
         for(let i = 0; i < arrayMultidimensional.length; i++){
             let currentGame;
             let flag_validateGame = true;
+            color_Objects.red = 0;
+            color_Objects.blue = 0;
+            color_Objects.green = 0;
             for(let j = 0; j < arrayMultidimensional[i].length;j++){
                 const subSet = arrayMultidimensional[i][j].split(',');
                 console.log(subSet);
@@ -69,32 +73,45 @@ function returnColor(stringColor){
                             const color = returnColor(set);
 
                                     if(color==='red'){
-                                        
+                                            if(color_Objects.red < number){
+                                                color_Objects.red = number
+                                                console.log(color_Objects.red);
+                                            }
+                                            
                                         if(number > goal_Red){
-                                            console.log(set);
+                                            
                                             flag_validateGame = false
                                         }
 
                                     }else if(color==='blue'){
-                                        
+                                        color_Objects.blue = Math.max(number, color_Objects.blue);
                                         if(number > goal_Blue){
-                                            console.log(set);
+                                            
                                             flag_validateGame = false
                                         }
 
                                     }else if(color==='green'){
-                                        
+                                        color_Objects.green = Math.max(number, color_Objects.green);
                                         if(number > goal_Green){
-                                            console.log(set);
+                                           
                                             flag_validateGame = false
                                         }
                                     }
                         
                     });
-                 
-
+                    
+                   
                     
             }
+            console.log(color_Objects);
+            let power = color_Objects.red * color_Objects.blue *  color_Objects.green;
+            allMaxGames.push(power);
+            console.log(allMaxGames);
+            color_Objects.blue = 0;
+            color_Objects.green = 0;
+            color_Objects.red = 0;
+
+
             /*console.log(currentGame);
             console.log(color_Objects);*/
             if(flag_validateGame){
@@ -106,9 +123,7 @@ function returnColor(stringColor){
 
 
                 currentGame = 0;
-            color_Objects.blue = 0;
-            color_Objects.green = 0;
-            color_Objects.red = 0;
+            
         }
     /*console.log(arrayMultidimensional);*/
     console.log(games);
@@ -116,6 +131,14 @@ function returnColor(stringColor){
         return accumulator + newNum;
       },0);
       console.log(sum);
+
+      const p = allMaxGames.reduce((accumulator, newNum)=>{
+        return accumulator + newNum;
+      },0);
+      console.log(p);
+      
   }
   main();
+
+
  
