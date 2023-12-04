@@ -32,6 +32,7 @@ function returnColor(stringColor){
     return result[1];
 }
 
+    let flag_validateGame = false;
   async function main(){
     
   let arreglo = await convertDataToArray();
@@ -71,7 +72,7 @@ function returnColor(stringColor){
 
                                     }else if(color==='blue'){
                                         color_Objects['blue'] +=number;
-                                        
+
                                     }else if(color==='green'){
                                         color_Objects['green'] +=number;
                                     }
